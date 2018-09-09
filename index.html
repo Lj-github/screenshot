@@ -36,11 +36,25 @@
             overflow-x: hidden;
             overflow-y: hidden;
         }
+        #bg{
+            position: absolute;
+            background: url(img/bg.jpg);
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
 <body scroll="no">
+<div id="bg"></div>
+<div id="roomIdBg">
+    <span id ="roomId" style="       color: #ffffff;font-size: 26px;;margin-left: 11%;"></span>
 
-<div id="capture" style="padding: 10px; background: #f5da55">
+</div>
+
+
+<div id="capture" style="background: #f5da55">
     <h4 style="color: #000; ">Hello world!</h4>
 
     <input id="text" type="text" value="http://jindo.dev.naver.com/collie" style="width:80%" /><br />
@@ -54,6 +68,9 @@
         height : 100
     });
 
+    /**
+     * 生成截图 图片
+     */
     function makeCode () {
         var elText = document.getElementById("text");
         if (!elText.value) {
@@ -77,6 +94,30 @@
             makeCode();
         }
     });
+    /**
+     * http 请求 1 为 post 0 为 get
+     * @param url
+     * @param type
+     * @param callBack ：Function
+     */
+    
+    function httpClient(url,callBack,type) {
+        type = type || 1
+        $.ajax({
+            url:url,
+            dataType:'jsonp',
+            type:type === 0 ? "GET:" : "POST",
+            success:function(result){
+                callBack(result)
+            } ,
+            error:function(err){alert(err)}
+        });
+    }
+
+
+
+
+    
 </script>
 </body>
 </html>
